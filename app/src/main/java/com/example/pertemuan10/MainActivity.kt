@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.pertemuan10.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -29,6 +30,10 @@ class MainActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        binding.btnToggleLayout.setOnCheckedChangeListener { _, isChecked ->
+            tampilkanData()
         }
 
         siapkanData()
@@ -57,7 +62,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun tampilkanData() {
-        binding.rvWayang.layoutManager = LinearLayoutManager(this)
+        if (binding.btnToggleLayout.isChecked) {
+            binding.rvWayang.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+        } else {
+            binding.rvWayang.layoutManager = LinearLayoutManager(this)
+        }
         binding.rvWayang.adapter = AdapterRecView(_arWayang)
     }
 }
