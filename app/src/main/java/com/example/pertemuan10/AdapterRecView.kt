@@ -32,6 +32,17 @@ class AdapterRecView (private val listWayang: ArrayList<DcWayang>): RecyclerView
             placeholder(R.drawable.ic_launcher_foreground)
             error(R.drawable.ic_launcher_foreground)
         }
+
+        val circularProgressDrawable = CircularProgressDrawable(holder.itemView.context).apply{
+            strokeWidth = 5f
+            centerRadius = 30f
+            start()
+        }
+        holder.binding.gambarWayang.load(wayang.foto) {
+            crossfade(true)
+            placeholder(circularProgressDrawable)
+            error(R.drawable.ic_launcher_foreground)
+        }
     }
 
     override fun getItemCount(): Int {
