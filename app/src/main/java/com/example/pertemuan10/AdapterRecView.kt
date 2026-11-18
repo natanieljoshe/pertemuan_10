@@ -11,6 +11,16 @@ import com.example.pertemuan10.databinding.ItemRecyclerBinding
 class AdapterRecView(private val listWayang: ArrayList<DcWayang>) :
     RecyclerView.Adapter<AdapterRecView.ListViewHolder>() {
 
+    interface OnItemClickCallback {
+        fun onItemClicked(data: DcWayang)
+    }
+
+    private lateinit var onItemClickCallback: OnItemClickCallback
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -50,6 +60,17 @@ class AdapterRecView(private val listWayang: ArrayList<DcWayang>) :
                 "Gambar ${wayang.nama} diklik",
                 Toast.LENGTH_SHORT
             ).show()
+
+            if (::onItemClickCallback.isInitialized){
+                onItemClickCallback.onItemClicked(wayang)
+            }
+
+        }
+
+        holder.itemView.setOnClickListener {
+            if (::onItemClickCallback.isInitialized) {
+                onItemClickCallback.onItemClicked(wayang)
+            }
         }
     }
 

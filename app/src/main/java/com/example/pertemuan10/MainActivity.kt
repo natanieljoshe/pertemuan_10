@@ -1,5 +1,6 @@
 package com.example.pertemuan10
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -68,5 +69,19 @@ class MainActivity : AppCompatActivity() {
             binding.rvWayang.layoutManager = LinearLayoutManager(this)
         }
         binding.rvWayang.adapter = AdapterRecView(_arWayang)
+
+        val adapterWayang = AdapterRecView(_arWayang)
+        adapterWayang.setOnItemClickCallback(object: AdapterRecView.OnItemClickCallback{
+            override fun onItemClicked(data: DcWayang) {
+                val intent = Intent(this@MainActivity, DetailActivity::class.java).apply{
+                    putExtra("nama", data.nama)
+                    putExtra("karakter", data.karakter)
+                    putExtra("deskripsi", data.deskripsi)
+                    putExtra("foto", data.foto)
+                }
+                startActivity(intent)
+            }
+        })
+        binding.rvWayang.adapter= adapterWayang
     }
 }

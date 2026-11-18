@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- ImageView: Foto -->
+        <ImageView
+            android:id="@+id/ivDetailGambar"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="Foto Wayang"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- TextView: Nama (di bawah ImageView) -->
+        <TextView
+            android:id="@+id/tvDetailNama"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textAlignment="center"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivDetailGambar"
+            tools:text="Nama Wayang" />
+
+        <!-- Chip: Karakter (di bawah TextView Nama) -->
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipDetailKarakter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDetailNama"
+            tools:text="Karakter" />
+
+        <!-- Divider (di bawah Chip Karakter) -->
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chipDetailKarakter" />
+
+        <!-- TextView: Detail Deskripsi (di bawah Divider) -->
+        <TextView
+            android:id="@+id/tvDetailDeskrip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            tools:text="Deskripsi Wayang" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
