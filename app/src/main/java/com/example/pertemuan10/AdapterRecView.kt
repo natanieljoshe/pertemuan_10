@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pertemuan10.databinding.ItemRecyclerBinding
+import coil.load
 
 class AdapterRecView (private val listWayang: ArrayList<DcWayang>): RecyclerView.Adapter<AdapterRecView.ListViewHolder>(){
     override fun onCreateViewHolder(
@@ -26,6 +27,11 @@ class AdapterRecView (private val listWayang: ArrayList<DcWayang>): RecyclerView
         holder.binding.namaWayang.text = wayang.nama
         holder.binding.karakterWayang.text = wayang.karakter
         holder.binding.deskripsiWayang.text = wayang.deskripsi
+        holder.binding.gambarWayang.load(wayang.foto){
+            crossfade(true)
+            placeholder(R.drawable.ic_launcher_foreground)
+            error(R.drawable.ic_launcher_foreground)
+        }
     }
 
     override fun getItemCount(): Int {
