@@ -1,7 +1,9 @@
 package com.example.pertemuan10
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -80,6 +82,25 @@ class MainActivity : AppCompatActivity() {
                     putExtra("foto", data.foto)
                 }
                 startActivity(intent)
+            }
+
+            override fun delData(pos: Int) {
+                val item = _arWayang[pos]
+                AlertDialog.Builder(this@MainActivity)
+                    .setTitle("Konfirmasi HAPUS DATA")
+                    .setMessage("Apakah Benar Data ${item.nama} akan dihapus?")
+                    .setPositiveButton("Hapus") { _, _ ->
+                        _arWayang.removeAt(pos)
+                        adapterWayang.notifyItemRemoved(pos)
+                        adapterWayang.notifyItemRangeChanged(pos, _arWayang.size - pos)
+                        Toast.makeText(
+                            this@MainActivity,
+                            "${item.nama} berhasil dihapus",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    .setNegativeButton("Batal", null)
+                    .show()
             }
         })
         binding.rvWayang.adapter= adapterWayang
