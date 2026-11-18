@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.pertemuan10.databinding.ActivityMainBinding
@@ -104,5 +105,8 @@ class MainActivity : AppCompatActivity() {
             }
         })
         binding.rvWayang.adapter= adapterWayang
+        binding.rvWayang.itemAnimator = DefaultItemAnimator().apply{
+            removeDuration = 400L
+        }
     }
 }
