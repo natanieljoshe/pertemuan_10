@@ -3,6 +3,8 @@ package com.example.pertemuan10
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -36,8 +38,12 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        binding.btnToggleLayout.setOnCheckedChangeListener { _, isChecked ->
+        binding.btnToggleLayout.setOnCheckedChangeListener { _, _ ->
             tampilkanData()
+        }
+
+        binding.fabTambah.setOnClickListener {
+            tampilkanDialogTambah()
         }
 
         siapkanData()
@@ -63,6 +69,54 @@ class MainActivity : AppCompatActivity() {
             )
             _arWayang.add(wayang)
         }
+    }
+
+    private fun tampilkanDialogTambah() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Tambah Data Wayang")
+
+        val layout = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(32, 16, 32, 16)
+        }
+
+        val inputFoto = EditText(this).apply {
+            hint = "Link Gambar (URL)"
+        }
+        val inputNama = EditText(this).apply { hint = "Nama Wayang" }
+        val inputKarakter = EditText(this).apply { hint = "Karakter" }
+        val inputDeskripsi = EditText(this).apply { hint = "Deskripsi Wayang" }
+
+        layout.addView(inputFoto)
+        layout.addView(inputNama)
+        layout.addView(inputKarakter)
+        layout.addView(inputDeskripsi)
+        builder.setView(layout)
+
+        builder.setPositiveButton("Simpan") { _, _ ->
+            val fotoUrl = inputFoto.text.toString().ifEmpty { "https://png.pngtree.com/png-clipart/20230120/original/pngtree-shadow-puppet-wekudara-bima-traditional-east-java-png-image_8923059.png" }
+            val namaStr = inputNama.text.toString()
+            val karakterStr = inputKarakter.text.toString()
+            val deskripsiStr = inputDeskripsi.text.toString()
+
+            if (namaStr.isNotEmpty()) {
+                val wayangBaru = DcWayang(
+                    foto = fotoUrl,
+                    nama = namaStr,
+                    karakter = karakterStr,
+                    deskripsi = deskripsiStr
+                )
+                _arWayang.add(wayangBaru)
+                tampilkanData()
+                binding.rvWayang.scrollToPosition(_arWayang.size - 1)
+
+                Toast.makeText(this, "$namaStr berhasil ditambahkan", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Nama tidak boleh kosong", Toast.LENGTH_SHORT).show()
+            }
+        }
+        builder.setNegativeButton("Batal", null)
+        builder.show()
     }
 
     private fun tampilkanData() {
